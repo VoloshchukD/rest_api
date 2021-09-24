@@ -5,6 +5,8 @@ import com.epam.esm.rest_api.entity.GiftCertificate;
 import com.epam.esm.rest_api.service.GiftCertificateService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GiftCertificateServiceImpl implements GiftCertificateService {
 
@@ -22,6 +24,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Override
     public GiftCertificate find(Long id) {
         return giftCertificateDao.find(id);
+    }
+
+    @Override
+    public List<GiftCertificate> findAll() {
+        return giftCertificateDao.findAll();
     }
 
     @Override

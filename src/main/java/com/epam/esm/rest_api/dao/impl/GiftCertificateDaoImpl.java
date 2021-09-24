@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class GiftCertificateDaoImpl implements GiftCertificateDao {
 
@@ -33,6 +35,12 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
                 .stream()
                 .findAny()
                 .orElse(null);
+    }
+
+    @Override
+    public List<GiftCertificate> findAll() {
+        return jdbcTemplate.query(ConstantQuery.FIND_ALL_GIFT_CERTIFICATES_QUERY,
+                new BeanPropertyRowMapper<>(GiftCertificate.class));
     }
 
     @Override
