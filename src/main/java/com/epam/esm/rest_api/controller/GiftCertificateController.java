@@ -33,22 +33,17 @@ public class GiftCertificateController {
     ResponseEntity<Boolean> createGiftCertificate(
             @RequestBody GiftCertificate certificate) {
         boolean result = giftCertificateService.add(certificate);
-        HttpStatus httpStatus = HttpStatus.NOT_MODIFIED;
-        if (result) {
-            httpStatus = HttpStatus.CREATED;
-        }
+        HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
     }
 
     @RequestMapping(method = RequestMethod.PATCH, consumes = "application/json")
     public @ResponseBody
     ResponseEntity<GiftCertificate> updateGiftCertificate(
-            @RequestBody GiftCertificate certificate) {
-        GiftCertificate giftCertificate = giftCertificateService.update(certificate);
-        HttpStatus httpStatus = HttpStatus.NOT_MODIFIED;
-        if (giftCertificate != null) {
-            httpStatus = HttpStatus.OK;
-        }
+            @RequestBody GiftCertificate giftCertificate) {
+        GiftCertificate updatedGiftCertificate = giftCertificateService.update(giftCertificate);
+        HttpStatus httpStatus = (updatedGiftCertificate != null)
+                ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(giftCertificate, httpStatus);
     }
 
@@ -57,10 +52,7 @@ public class GiftCertificateController {
     ResponseEntity<GiftCertificate> deleteGiftCertificate(
             @PathVariable("id") Long id) {
         boolean result = giftCertificateService.remove(id);
-        HttpStatus httpStatus = HttpStatus.NOT_MODIFIED;
-        if (result) {
-            httpStatus = HttpStatus.OK;
-        }
+        HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
     }
 

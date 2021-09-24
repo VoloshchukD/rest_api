@@ -17,6 +17,16 @@ public final class ConstantQuery {
 
     public static final String DELETE_GIFT_CERTIFICATE_QUERY = "DELETE FROM gift_certificates WHERE id = ?";
 
+    public static final String CREATE_TAG_QUERY = "INSERT INTO tags (name) VALUES (?)";
+
+    public static final String FIND_TAG_QUERY = "SELECT * FROM tags WHERE id = ?";
+
+    public static final String FIND_ALL_TAGS_QUERY = "SELECT * FROM tags";
+
+    public static final String UPDATE_TAG_QUERY = "UPDATE tags SET name = COALESCE(?, name) WHERE id = ?";
+
+    public static final String DELETE_TAG_QUERY = "DELETE FROM tags WHERE id = ?";
+
     private ConstantQuery() {
     }
 

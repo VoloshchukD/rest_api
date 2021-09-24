@@ -50,11 +50,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
                 giftCertificate.getPrice(), giftCertificate.getDuration(),
                 giftCertificate.getCreateDate(), giftCertificate.getLastUpdateDate(),
                 giftCertificate.getId());
-        GiftCertificate resultEntity = null;
-        if (result == 1) {
-            resultEntity = giftCertificate;
-        }
-        return resultEntity;
+        return (result == 1) ? giftCertificate : null;
     }
 
     @Override
