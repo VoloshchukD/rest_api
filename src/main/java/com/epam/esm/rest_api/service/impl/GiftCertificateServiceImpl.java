@@ -5,6 +5,7 @@ import com.epam.esm.rest_api.entity.GiftCertificate;
 import com.epam.esm.rest_api.service.GiftCertificateService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,6 +19,9 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     public boolean add(GiftCertificate certificate) {
+        Date currentDate = new Date();
+        certificate.setCreateDate(currentDate);
+        certificate.setLastUpdateDate(currentDate);
         return giftCertificateDao.add(certificate);
     }
 
@@ -33,6 +37,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     public GiftCertificate update(GiftCertificate certificate) {
+        certificate.setLastUpdateDate(new Date());
         return giftCertificateDao.update(certificate);
     }
 
