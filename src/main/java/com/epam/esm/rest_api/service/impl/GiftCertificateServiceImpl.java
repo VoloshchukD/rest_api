@@ -42,8 +42,8 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public boolean remove(Long id) {
-        return giftCertificateDao.remove(id);
+    public boolean delete(Long id) {
+        return giftCertificateDao.delete(id);
     }
 
 }

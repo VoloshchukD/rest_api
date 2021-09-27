@@ -47,7 +47,7 @@ public class TagController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
     ResponseEntity<Tag> deleteTag(@PathVariable("id") Long id) {
-        boolean result = tagService.remove(id);
+        boolean result = tagService.delete(id);
         HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
     }

@@ -51,7 +51,7 @@ public class GiftCertificateController {
     public @ResponseBody
     ResponseEntity<GiftCertificate> deleteGiftCertificate(
             @PathVariable("id") Long id) {
-        boolean result = giftCertificateService.remove(id);
+        boolean result = giftCertificateService.delete(id);
         HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
     }

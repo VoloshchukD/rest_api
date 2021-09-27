@@ -54,7 +54,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     }
 
     @Override
-    public boolean remove(Long id) {
+    public boolean delete(Long id) {
         int result = jdbcTemplate.update(ConstantQuery.DELETE_GIFT_CERTIFICATE_QUERY, id);
         return (result == 1);
     }
