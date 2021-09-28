@@ -51,4 +51,16 @@ public class TagDaoImpl implements TagDao {
         return (result == 1);
     }
 
+    @Override
+    public boolean addTagToCertificate(Long certificateId, Long tagId) {
+        int result = jdbcTemplate.update(ConstantQuery.ADD_TAG_TO_CERTIFICATE_QUERY, certificateId, tagId);
+        return (result == 1);
+    }
+
+    @Override
+    public boolean deleteTagFromCertificate(Long certificateId, Long tagId) {
+        int result = jdbcTemplate.update(ConstantQuery.DELETE_TAG_FROM_CERTIFICATE_QUERY, certificateId, tagId);
+        return (result == 1);
+    }
+
 }

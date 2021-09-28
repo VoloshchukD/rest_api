@@ -65,4 +65,16 @@ public class TagServiceTest {
         Assertions.assertTrue(tagService.delete(tag.getId()));
     }
 
+    @Test
+    public void testAddTagToCertificate() {
+        Mockito.when(tagDao.addTagToCertificate(1L, 1L)).thenReturn(true);
+        Assertions.assertTrue(tagService.addTagToCertificate(1L, 1L));
+    }
+
+    @Test
+    public void testDeleteTagFromCertificate() {
+        Mockito.when(tagDao.deleteTagFromCertificate(1L, 1L)).thenReturn(true);
+        Assertions.assertTrue(tagService.deleteTagFromCertificate(1L, 1L));
+    }
+
 }

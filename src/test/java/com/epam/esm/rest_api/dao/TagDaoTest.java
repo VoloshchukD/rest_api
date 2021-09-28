@@ -3,6 +3,7 @@ package com.epam.esm.rest_api.dao;
 import com.epam.esm.rest_api.configuration.TestDataSourceConfiguration;
 import com.epam.esm.rest_api.entity.Tag;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,6 +52,21 @@ public class TagDaoTest {
     @Test
     public void testDeleteTag() {
         Assert.assertTrue(tagDao.delete(2L));
+    }
+
+    @Test
+    public void testAddTagToCertificate() {
+        Assert.assertTrue(tagDao.addTagToCertificate(4L, 4L));
+    }
+
+    @Before
+    public void addTagToCertificate() {
+        tagDao.addTagToCertificate(3L, 4L);
+    }
+
+    @Test
+    public void testDeleteTagFromCertificate() {
+        Assert.assertTrue(tagDao.deleteTagFromCertificate(3L, 4L));
     }
 
 }

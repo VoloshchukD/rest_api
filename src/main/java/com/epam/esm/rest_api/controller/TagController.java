@@ -52,4 +52,23 @@ public class TagController {
         return new ResponseEntity(result, httpStatus);
     }
 
+    @RequestMapping(method = RequestMethod.POST, params = {"certificateId", "tagId"},
+            consumes = "application/json")
+    public @ResponseBody
+    ResponseEntity<Boolean> addTagToCertificate(@RequestParam("certificateId") Long certificateId,
+                                                @RequestParam("tagId") Long tagId) {
+        boolean result = tagService.addTagToCertificate(certificateId, tagId);
+        HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;
+        return new ResponseEntity(result, httpStatus);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, params = {"certificateId", "tagId"})
+    public @ResponseBody
+    ResponseEntity<Tag> deleteTagFromCertificate(@RequestParam("certificateId") Long certificateId,
+                                                 @RequestParam("tagId") Long tagId) {
+        boolean result = tagService.deleteTagFromCertificate(certificateId, tagId);
+        HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
+        return new ResponseEntity(result, httpStatus);
+    }
+
 }

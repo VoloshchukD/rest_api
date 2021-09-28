@@ -27,6 +27,12 @@ public final class ConstantQuery {
 
     public static final String DELETE_TAG_QUERY = "DELETE FROM tags WHERE id = ?";
 
+    public static final String ADD_TAG_TO_CERTIFICATE_QUERY = "INSERT INTO " +
+            "certificate_tag_maps(gift_certificate_id, tag_id) VALUES (?, ?)";
+
+    public static final String DELETE_TAG_FROM_CERTIFICATE_QUERY = "DELETE FROM certificate_tag_maps " +
+            "WHERE gift_certificate_id = ? AND tag_id = ?";
+
     public static final String FIND_CERTIFICATE_BY_TAG_NAME = "SELECT * FROM gift_certificates " +
             "INNER JOIN certificate_tag_maps ON certificate_tag_maps.gift_certificate_id = gift_certificates.id " +
             "INNER JOIN tags ON certificate_tag_maps.tag_id = tags.id WHERE tags.name = COALESCE(?, tags.name)";
