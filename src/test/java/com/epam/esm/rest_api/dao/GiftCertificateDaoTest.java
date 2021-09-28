@@ -25,7 +25,7 @@ public class GiftCertificateDaoTest {
     public static void initializeGiftCertificate() {
         giftCertificate = new GiftCertificate();
         giftCertificate.setId(1L);
-        giftCertificate.setName("test-certificate");
+        giftCertificate.setName("qwerty");
         giftCertificate.setLastUpdateDate(new Date());
         giftCertificate.setCreateDate(new Date());
         giftCertificate.setDescription("test");
@@ -58,6 +58,21 @@ public class GiftCertificateDaoTest {
     @Test
     public void testDeleteCertificate() {
         Assert.assertTrue(giftCertificateDao.delete(2L));
+    }
+
+    @Test
+    public void testFindByTagName() {
+        Assert.assertNotNull(giftCertificateDao.findByTagName("test"));
+    }
+
+    @Test
+    public void testFindByNameAndDescription() {
+        Assert.assertNotNull(giftCertificateDao.findByNameAndDescription("qwer", "qwer"));
+    }
+
+    @Test
+    public void testFindSorted() {
+        Assert.assertNotNull(giftCertificateDao.findSorted("name", false));
     }
 
 }

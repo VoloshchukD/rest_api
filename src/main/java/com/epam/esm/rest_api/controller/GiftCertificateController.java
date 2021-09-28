@@ -56,5 +56,22 @@ public class GiftCertificateController {
         return new ResponseEntity(result, httpStatus);
     }
 
+    @RequestMapping(method = RequestMethod.GET, params = {"tagName"})
+    public ResponseEntity<GiftCertificate> findGiftCertificateByTagName(@RequestParam("tagName") String tagName) {
+        return new ResponseEntity(giftCertificateService.findByTagName(tagName), HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = {"name", "description"})
+    public ResponseEntity<List<GiftCertificate>> findByNameAndDescription(@RequestParam("name") String name,
+                                                                    @RequestParam("description") String description) {
+        return new ResponseEntity(giftCertificateService.findByNameAndDescription(name, description), HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = {"sortingParameter", "descending"})
+    public ResponseEntity<List<GiftCertificate>> findSorted(@RequestParam("sortingParameter") String sortingParameter,
+                                                      @RequestParam("descending") boolean descending) {
+        return new ResponseEntity(giftCertificateService.findSorted(sortingParameter, descending), HttpStatus.OK);
+    }
+
 }
 

@@ -43,3 +43,9 @@ VALUES ('qwerty', 99, 3, '2017-01-23T12:34:56.123456789Z', 'qwerty', '2017-01-23
 
 INSERT INTO rest_api.tags (name) VALUES ('test');
 INSERT INTO rest_api.tags (name) VALUES ('test');
+INSERT INTO rest_api.tags (name) VALUES ('test');
+INSERT INTO rest_api.tags (name) VALUES ('test');
+
+INSERT INTO rest_api.certificate_tag_maps(gift_certificate_id, tag_id) VALUES (1, 1);
+INSERT INTO rest_api.certificate_tag_maps(gift_certificate_id, tag_id) VALUES (1, 3);
+INSERT INTO rest_api.certificate_tag_maps(gift_certificate_id, tag_id) VALUES (1, 4);

@@ -46,4 +46,19 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         return giftCertificateDao.delete(id);
     }
 
+    @Override
+    public GiftCertificate findByTagName(String tagName) {
+        return giftCertificateDao.findByTagName(tagName);
+    }
+
+    @Override
+    public List<GiftCertificate> findByNameAndDescription(String name, String description) {
+        return giftCertificateDao.findByNameAndDescription(name, description);
+    }
+
+    @Override
+    public List<GiftCertificate> findSorted(String sortingParameter, boolean descending) {
+        return giftCertificateDao.findSorted(sortingParameter, descending);
+    }
+
 }

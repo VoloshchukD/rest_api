@@ -59,4 +59,29 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
         return (result == 1);
     }
 
+
+    @Override
+    public GiftCertificate findByTagName(String tagName) {
+        return jdbcTemplate.query(ConstantQuery.FIND_CERTIFICATE_BY_TAG_NAME,
+                new BeanPropertyRowMapper<>(GiftCertificate.class),
+                new Object[]{tagName})
+                .stream()
+                .findAny()
+                .orElse(null);
+    }
+
+    @Override
+    public List<GiftCertificate> findByNameAndDescription(String name, String description) {
+        return jdbcTemplate.query(ConstantQuery.FIND_CERTIFICATES_BY_PART_OF_NAME_AND_DESCRIPTION,
+                new BeanPropertyRowMapper<>(GiftCertificate.class),
+                ConstantQuery.PERCENT + name + ConstantQuery.PERCENT,
+                ConstantQuery.PERCENT + description + ConstantQuery.PERCENT);
+    }
+
+    @Override
+    public List<GiftCertificate> findSorted(String sortingParameter, boolean descending) {
+        return jdbcTemplate.query(ConstantQuery.FIND_CERTIFICATES_SORTED,
+                new BeanPropertyRowMapper<>(GiftCertificate.class), sortingParameter, descending);
+    }
+
 }

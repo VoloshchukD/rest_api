@@ -71,4 +71,29 @@ public class GiftCertificateServiceTest {
         Assertions.assertTrue(giftCertificateService.delete(giftCertificate.getId()));
     }
 
+    @Test
+    public void testFindByTagName() {
+        String tagName = "test";
+        Mockito.when(giftCertificateDao.findByTagName(tagName)).thenReturn(giftCertificate);
+        Assertions.assertNotNull(giftCertificateDao.findByTagName(tagName));
+    }
+
+    @Test
+    public void testFindByNameAndDescription() {
+        String name = "qwer";
+        String description = "qwer";
+        Mockito.when(giftCertificateDao.findByNameAndDescription(name, description)).thenReturn(
+                Collections.singletonList(giftCertificate));
+        Assertions.assertNotNull(giftCertificateDao.findByNameAndDescription(name, description));
+    }
+
+    @Test
+    public void testFindSorted() {
+        String sortingParameter = "name";
+        boolean descending = false;
+        Mockito.when(giftCertificateDao.findSorted(sortingParameter, descending)).thenReturn(
+                Collections.singletonList(giftCertificate));
+        Assertions.assertNotNull(giftCertificateDao.findSorted(sortingParameter, descending));
+    }
+
 }
