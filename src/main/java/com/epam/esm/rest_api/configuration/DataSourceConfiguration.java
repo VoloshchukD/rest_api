@@ -8,7 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
-@PropertySource(value = {"classpath:application.properties"})
+@PropertySource(value = {"classpath:application-${spring.profiles.active}.properties"})
 public class DataSourceConfiguration {
 
     @Value("${spring.datasource.driver-class-name}")
