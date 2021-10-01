@@ -33,7 +33,11 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag update(Tag tag) {
-        return tagDao.update(tag);
+        Tag updated = tagDao.update(tag);
+        if (updated != null) {
+            updated = find(tag.getId());
+        }
+        return updated;
     }
 
     @Override

@@ -44,7 +44,7 @@ public class GiftCertificateController {
         GiftCertificate updatedGiftCertificate = giftCertificateService.update(giftCertificate);
         HttpStatus httpStatus = (updatedGiftCertificate != null)
                 ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
-        return new ResponseEntity(giftCertificate, httpStatus);
+        return new ResponseEntity(updatedGiftCertificate, httpStatus);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -63,13 +63,14 @@ public class GiftCertificateController {
 
     @RequestMapping(method = RequestMethod.GET, params = {"name", "description"})
     public ResponseEntity<List<GiftCertificate>> findByNameAndDescription(@RequestParam("name") String name,
-                                                                    @RequestParam("description") String description) {
+                                                                          @RequestParam("description")
+                                                                                  String description) {
         return new ResponseEntity(giftCertificateService.findByNameAndDescription(name, description), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"sortingParameter", "descending"})
     public ResponseEntity<List<GiftCertificate>> findSorted(@RequestParam("sortingParameter") String sortingParameter,
-                                                      @RequestParam("descending") boolean descending) {
+                                                            @RequestParam("descending") boolean descending) {
         return new ResponseEntity(giftCertificateService.findSorted(sortingParameter, descending), HttpStatus.OK);
     }
 

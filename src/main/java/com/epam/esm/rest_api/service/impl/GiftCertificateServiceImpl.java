@@ -38,7 +38,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     @Override
     public GiftCertificate update(GiftCertificate certificate) {
         certificate.setLastUpdateDate(new Date());
-        return giftCertificateDao.update(certificate);
+        GiftCertificate updated = giftCertificateDao.update(certificate);
+        if (updated != null) {
+            updated = find(certificate.getId());
+        }
+        return updated;
     }
 
     @Override
