@@ -62,6 +62,15 @@ public class TagController {
         return new ResponseEntity(result, httpStatus);
     }
 
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json",
+            params = {"certificateId"})
+    ResponseEntity<Boolean> addTagToCertificate(@RequestBody Tag tag,
+                                                @RequestParam("certificateId") Long certificateId) {
+        boolean result = tagService.addTagToCertificate(tag, certificateId);
+        HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;
+        return new ResponseEntity(result, httpStatus);
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, params = {"certificateId", "tagId"})
     public @ResponseBody
     ResponseEntity<Tag> deleteTagFromCertificate(@RequestParam("certificateId") Long certificateId,

@@ -51,6 +51,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public boolean addTagToCertificate(Tag tag, Long certificateId) {
+        return tagDao.addTagToCertificate(tag, certificateId);
+    }
+
+    @Override
     public boolean deleteTagFromCertificate(Long certificateId, Long tagId) {
         return tagDao.deleteTagFromCertificate(certificateId, tagId);
     }

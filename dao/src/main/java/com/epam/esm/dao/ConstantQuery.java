@@ -33,6 +33,9 @@ public final class ConstantQuery {
     public static final String DELETE_TAG_FROM_CERTIFICATE_QUERY = "DELETE FROM certificate_tag_maps " +
             "WHERE gift_certificate_id = ? AND tag_id = ?";
 
+    public static final String DELETE_TAG_FROM_CERTIFICATES_QUERY = "DELETE FROM certificate_tag_maps " +
+            "WHERE tag_id = ?";
+
     public static final String FIND_CERTIFICATE_BY_TAG_NAME = "SELECT * FROM gift_certificates " +
             "INNER JOIN certificate_tag_maps ON certificate_tag_maps.gift_certificate_id = gift_certificates.id " +
             "INNER JOIN tags ON certificate_tag_maps.tag_id = tags.id WHERE tags.name = COALESCE(?, tags.name)";
@@ -54,6 +57,8 @@ public final class ConstantQuery {
             " CASE ?  WHEN TRUE THEN gift_certificates.create_date END DESC";
 
     public static final String PERCENT = "%";
+
+    public static final String TAG_COLUMN_ID = "id";
 
     private ConstantQuery() {
     }

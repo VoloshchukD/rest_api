@@ -6,6 +6,7 @@ import com.epam.esm.entity.GiftCertificate;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
                 new BeanPropertyRowMapper<>(GiftCertificate.class));
     }
 
+    @Transactional
     @Override
     public GiftCertificate update(GiftCertificate giftCertificate) {
         int result = jdbcTemplate.update(ConstantQuery.UPDATE_GIFT_CERTIFICATE_QUERY,
@@ -58,7 +60,6 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
         int result = jdbcTemplate.update(ConstantQuery.DELETE_GIFT_CERTIFICATE_QUERY, id);
         return (result == 1);
     }
-
 
     @Override
     public GiftCertificate findByTagName(String tagName) {
