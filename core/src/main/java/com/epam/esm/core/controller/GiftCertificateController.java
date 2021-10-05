@@ -2,6 +2,7 @@ package com.epam.esm.core.controller;
 
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.service.GiftCertificateService;
+import com.epam.esm.service.exception.ParameterNotPresentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,8 @@ public class GiftCertificateController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<GiftCertificate> getGiftCertificate(@PathVariable("id") Long id) {
+    public ResponseEntity<GiftCertificate> getGiftCertificate(@PathVariable("id") Long id)
+            throws ParameterNotPresentException {
         return new ResponseEntity(giftCertificateService.find(id), HttpStatus.OK);
     }
 
@@ -29,18 +31,15 @@ public class GiftCertificateController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody
-    ResponseEntity<Boolean> createGiftCertificate(
-            @RequestBody GiftCertificate certificate) {
+    public ResponseEntity<Boolean> createGiftCertificate(@RequestBody GiftCertificate certificate) {
         boolean result = giftCertificateService.add(certificate);
         HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
     }
 
     @RequestMapping(method = RequestMethod.PATCH, consumes = "application/json")
-    public @ResponseBody
-    ResponseEntity<GiftCertificate> updateGiftCertificate(
-            @RequestBody GiftCertificate giftCertificate) {
+    public ResponseEntity<GiftCertificate> updateGiftCertificate(@RequestBody GiftCertificate giftCertificate)
+            throws ParameterNotPresentException {
         GiftCertificate updatedGiftCertificate = giftCertificateService.update(giftCertificate);
         HttpStatus httpStatus = (updatedGiftCertificate != null)
                 ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
@@ -48,9 +47,8 @@ public class GiftCertificateController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody
-    ResponseEntity<GiftCertificate> deleteGiftCertificate(
-            @PathVariable("id") Long id) {
+    public ResponseEntity<GiftCertificate> deleteGiftCertificate(
+            @PathVariable("id") Long id) throws ParameterNotPresentException {
         boolean result = giftCertificateService.delete(id);
         HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);

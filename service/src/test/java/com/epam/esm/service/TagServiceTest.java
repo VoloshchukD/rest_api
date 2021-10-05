@@ -3,6 +3,7 @@ package com.epam.esm.service;
 import com.epam.esm.dao.TagDao;
 import com.epam.esm.dao.impl.TagDaoImpl;
 import com.epam.esm.entity.Tag;
+import com.epam.esm.service.exception.ParameterNotPresentException;
 import com.epam.esm.service.impl.TagServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -40,7 +41,7 @@ public class TagServiceTest {
     }
 
     @Test
-    public void testFindTag() {
+    public void testFindTag() throws ParameterNotPresentException {
         Mockito.when(tagDao.find(tag.getId())).thenReturn(tag);
         Assertions.assertEquals(tag, tagService.find(tag.getId()));
     }
@@ -52,27 +53,13 @@ public class TagServiceTest {
     }
 
     @Test
-    public void testUpdateTag() {
-        String updatedString = "updated";
-        tag.setName(updatedString);
-        Mockito.when(tagDao.update(tag)).thenReturn(tag);
-        Assertions.assertEquals(tag, tagService.update(tag));
-    }
-
-    @Test
-    public void testDeleteTag() {
-        Mockito.when(tagDao.delete(tag.getId())).thenReturn(true);
-        Assertions.assertTrue(tagService.delete(tag.getId()));
-    }
-
-    @Test
-    public void testAddTagToCertificate() {
+    public void testAddTagToCertificate() throws ParameterNotPresentException {
         Mockito.when(tagDao.addTagToCertificate(1L, 1L)).thenReturn(true);
         Assertions.assertTrue(tagService.addTagToCertificate(1L, 1L));
     }
 
     @Test
-    public void testDeleteTagFromCertificate() {
+    public void testDeleteTagFromCertificate() throws ParameterNotPresentException {
         Mockito.when(tagDao.deleteTagFromCertificate(1L, 1L)).thenReturn(true);
         Assertions.assertTrue(tagService.deleteTagFromCertificate(1L, 1L));
     }

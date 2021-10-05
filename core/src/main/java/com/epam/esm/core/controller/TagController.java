@@ -2,6 +2,7 @@ package com.epam.esm.core.controller;
 
 import com.epam.esm.entity.Tag;
 import com.epam.esm.service.TagService;
+import com.epam.esm.service.exception.ParameterNotPresentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class TagController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Tag> getTag(@PathVariable("id") Long id) {
+    public ResponseEntity<Tag> getTag(@PathVariable("id") Long id) throws ParameterNotPresentException {
         return new ResponseEntity(tagService.find(id), HttpStatus.OK);
     }
 
@@ -38,7 +39,8 @@ public class TagController {
 
     @RequestMapping(method = RequestMethod.PATCH, consumes = "application/json")
     public @ResponseBody
-    ResponseEntity<Tag> updateTag(@RequestBody Tag tag) {
+    ResponseEntity<Tag> updateTag(@RequestBody Tag tag)
+            throws ParameterNotPresentException {
         Tag updatedTag = tagService.update(tag);
         HttpStatus httpStatus = (updatedTag != null) ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(updatedTag, httpStatus);
@@ -46,7 +48,7 @@ public class TagController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public @ResponseBody
-    ResponseEntity<Tag> deleteTag(@PathVariable("id") Long id) {
+    ResponseEntity<Tag> deleteTag(@PathVariable("id") Long id) throws ParameterNotPresentException {
         boolean result = tagService.delete(id);
         HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
@@ -56,7 +58,8 @@ public class TagController {
             consumes = "application/json")
     public @ResponseBody
     ResponseEntity<Boolean> addTagToCertificate(@RequestParam("certificateId") Long certificateId,
-                                                @RequestParam("tagId") Long tagId) {
+                                                @RequestParam("tagId") Long tagId)
+            throws ParameterNotPresentException {
         boolean result = tagService.addTagToCertificate(certificateId, tagId);
         HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
@@ -65,16 +68,17 @@ public class TagController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json",
             params = {"certificateId"})
     ResponseEntity<Boolean> addTagToCertificate(@RequestBody Tag tag,
-                                                @RequestParam("certificateId") Long certificateId) {
+                                                @RequestParam("certificateId") Long certificateId)
+            throws ParameterNotPresentException {
         boolean result = tagService.addTagToCertificate(tag, certificateId);
         HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, params = {"certificateId", "tagId"})
-    public @ResponseBody
-    ResponseEntity<Tag> deleteTagFromCertificate(@RequestParam("certificateId") Long certificateId,
-                                                 @RequestParam("tagId") Long tagId) {
+    public ResponseEntity<Tag> deleteTagFromCertificate(@RequestParam("certificateId") Long certificateId,
+                                                        @RequestParam("tagId") Long tagId)
+            throws ParameterNotPresentException {
         boolean result = tagService.deleteTagFromCertificate(certificateId, tagId);
         HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);

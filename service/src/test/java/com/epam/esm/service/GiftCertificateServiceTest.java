@@ -3,6 +3,7 @@ package com.epam.esm.service;
 import com.epam.esm.dao.GiftCertificateDao;
 import com.epam.esm.dao.impl.GiftCertificateDaoImpl;
 import com.epam.esm.entity.GiftCertificate;
+import com.epam.esm.service.exception.ParameterNotPresentException;
 import com.epam.esm.service.impl.GiftCertificateServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,7 +47,7 @@ public class GiftCertificateServiceTest {
     }
 
     @Test
-    public void testFindGiftCertificate() {
+    public void testFindGiftCertificate() throws ParameterNotPresentException {
         Mockito.when(giftCertificateDao.find(giftCertificate.getId())).thenReturn(giftCertificate);
         Assertions.assertEquals(giftCertificate, giftCertificateService.find(giftCertificate.getId()));
     }
@@ -55,20 +56,6 @@ public class GiftCertificateServiceTest {
     public void testFindAllGiftCertificates() {
         Mockito.when(giftCertificateDao.findAll()).thenReturn(Collections.singletonList(giftCertificate));
         Assertions.assertNotNull(giftCertificateService.findAll());
-    }
-
-    @Test
-    public void testUpdateGiftCertificate() {
-        String updatedString = "updated";
-        giftCertificate.setName(updatedString);
-        Mockito.when(giftCertificateDao.update(giftCertificate)).thenReturn(giftCertificate);
-        Assertions.assertEquals(giftCertificate, giftCertificateService.update(giftCertificate));
-    }
-
-    @Test
-    public void testDeleteGiftCertificate() {
-        Mockito.when(giftCertificateDao.delete(giftCertificate.getId())).thenReturn(true);
-        Assertions.assertTrue(giftCertificateService.delete(giftCertificate.getId()));
     }
 
     @Test

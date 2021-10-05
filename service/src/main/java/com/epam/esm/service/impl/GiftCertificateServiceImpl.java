@@ -3,6 +3,8 @@ package com.epam.esm.service.impl;
 import com.epam.esm.dao.GiftCertificateDao;
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.service.GiftCertificateService;
+import com.epam.esm.service.exception.ParameterNotPresentException;
+import com.epam.esm.service.util.ExceptionMessageConstants;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -26,7 +28,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public GiftCertificate find(Long id) {
+    public GiftCertificate find(Long id) throws ParameterNotPresentException {
+        if (id == null) {
+            throw new ParameterNotPresentException(ExceptionMessageConstants.CERTIFICATE_CODE,
+                    ExceptionMessageConstants.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
+        }
         return giftCertificateDao.find(id);
     }
 
@@ -36,7 +42,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public GiftCertificate update(GiftCertificate certificate) {
+    public GiftCertificate update(GiftCertificate certificate) throws ParameterNotPresentException {
+        if (certificate.getId() == null) {
+            throw new ParameterNotPresentException(ExceptionMessageConstants.CERTIFICATE_CODE,
+                    ExceptionMessageConstants.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
+        }
         certificate.setLastUpdateDate(new Date());
         GiftCertificate updated = giftCertificateDao.update(certificate);
         if (updated != null) {
@@ -46,7 +56,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public boolean delete(Long id) throws ParameterNotPresentException {
+        if (id == null) {
+            throw new ParameterNotPresentException(ExceptionMessageConstants.CERTIFICATE_CODE,
+                    ExceptionMessageConstants.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
+        }
         return giftCertificateDao.delete(id);
     }
 
