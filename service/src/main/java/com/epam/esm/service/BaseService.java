@@ -4,16 +4,53 @@ import com.epam.esm.service.exception.ParameterNotPresentException;
 
 import java.util.List;
 
+/**
+ * Base interface with logics for every program entity.
+ *
+ * @author Daniil Valashchuk
+ */
 public interface BaseService<T> {
 
+    /**
+     * Method with saving entity data logics.
+     *
+     * @param t - required entity to add
+     * @return boolean result of saving
+     */
     boolean add(T t);
 
+    /**
+     * Method with entity seeking logics.
+     *
+     * @param id - required entity identifier
+     * @return founded entity
+     * @throws {@link ParameterNotPresentException}
+     */
     T find(Long id) throws ParameterNotPresentException;
 
+    /**
+     * Method with all entities seeking logics.
+     *
+     * @return list of all founded entities
+     */
     List<T> findAll();
 
+    /**
+     * Method with entity data refresh.
+     *
+     * @param t - required entity data for update
+     * @return updated entity
+     * @throws {@link ParameterNotPresentException}
+     */
     T update(T t) throws ParameterNotPresentException;
 
+    /**
+     * Method with entity data deletion.
+     *
+     * @param id - identifier of target entity
+     * @return boolean result of deletion
+     * @throws {@link ParameterNotPresentException}
+     */
     boolean delete(Long id) throws ParameterNotPresentException;
 
 }
