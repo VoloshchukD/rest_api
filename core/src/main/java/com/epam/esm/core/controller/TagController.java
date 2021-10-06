@@ -30,16 +30,14 @@ public class TagController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody
-    ResponseEntity<Boolean> createTag(@RequestBody Tag tag) {
+    public ResponseEntity<Boolean> createTag(@RequestBody Tag tag) {
         boolean result = tagService.add(tag);
         HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
     }
 
     @RequestMapping(method = RequestMethod.PATCH, consumes = "application/json")
-    public @ResponseBody
-    ResponseEntity<Tag> updateTag(@RequestBody Tag tag)
+    public ResponseEntity<Tag> updateTag(@RequestBody Tag tag)
             throws ParameterNotPresentException {
         Tag updatedTag = tagService.update(tag);
         HttpStatus httpStatus = (updatedTag != null) ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
@@ -47,8 +45,7 @@ public class TagController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody
-    ResponseEntity<Tag> deleteTag(@PathVariable("id") Long id) throws ParameterNotPresentException {
+    public ResponseEntity<Tag> deleteTag(@PathVariable("id") Long id) throws ParameterNotPresentException {
         boolean result = tagService.delete(id);
         HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
@@ -56,9 +53,8 @@ public class TagController {
 
     @RequestMapping(method = RequestMethod.POST, params = {"certificateId", "tagId"},
             consumes = "application/json")
-    public @ResponseBody
-    ResponseEntity<Boolean> addTagToCertificate(@RequestParam("certificateId") Long certificateId,
-                                                @RequestParam("tagId") Long tagId)
+    public ResponseEntity<Boolean> addTagToCertificate(@RequestParam("certificateId") Long certificateId,
+                                                       @RequestParam("tagId") Long tagId)
             throws ParameterNotPresentException {
         boolean result = tagService.addTagToCertificate(certificateId, tagId);
         HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;

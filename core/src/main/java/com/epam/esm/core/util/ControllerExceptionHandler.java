@@ -2,7 +2,7 @@ package com.epam.esm.core.util;
 
 import com.epam.esm.entity.dto.ErrorData;
 import com.epam.esm.service.exception.ParameterNotPresentException;
-import com.epam.esm.service.util.ExceptionMessageConstants;
+import com.epam.esm.service.util.ExceptionMessageHandler;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleParameterNotPresentException(ParameterNotPresentException exception,
                                                                         WebRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        String messageName = ExceptionMessageConstants.getMessageForLocale(exception.getMessageName(),
+        String messageName = ExceptionMessageHandler.getMessageForLocale(exception.getMessageName(),
                 request.getLocale());
         log.error(messageName, exception);
         ErrorData errorData = new ErrorData(messageName,

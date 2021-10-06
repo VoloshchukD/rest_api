@@ -4,7 +4,7 @@ import com.epam.esm.dao.TagDao;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.service.TagService;
 import com.epam.esm.service.exception.ParameterNotPresentException;
-import com.epam.esm.service.util.ExceptionMessageConstants;
+import com.epam.esm.service.util.ExceptionMessageHandler;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +26,8 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag find(Long id) throws ParameterNotPresentException {
         if (id == null) {
-            throw new ParameterNotPresentException(ExceptionMessageConstants.TAG_CODE,
-                    ExceptionMessageConstants.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
+            throw new ParameterNotPresentException(ExceptionMessageHandler.TAG_CODE,
+                    ExceptionMessageHandler.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
         }
         return tagDao.find(id);
     }
@@ -40,8 +40,8 @@ public class TagServiceImpl implements TagService {
     @Override
     public Tag update(Tag tag) throws ParameterNotPresentException {
         if (tag.getId() == null) {
-            throw new ParameterNotPresentException(ExceptionMessageConstants.TAG_CODE,
-                    ExceptionMessageConstants.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
+            throw new ParameterNotPresentException(ExceptionMessageHandler.TAG_CODE,
+                    ExceptionMessageHandler.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
         }
         Tag updated = tagDao.update(tag);
         if (updated != null) {
@@ -53,8 +53,8 @@ public class TagServiceImpl implements TagService {
     @Override
     public boolean delete(Long id) throws ParameterNotPresentException {
         if (id == null) {
-            throw new ParameterNotPresentException(ExceptionMessageConstants.TAG_CODE,
-                    ExceptionMessageConstants.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
+            throw new ParameterNotPresentException(ExceptionMessageHandler.TAG_CODE,
+                    ExceptionMessageHandler.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
         }
         return tagDao.delete(id);
     }
@@ -62,12 +62,12 @@ public class TagServiceImpl implements TagService {
     @Override
     public boolean addTagToCertificate(Long certificateId, Long tagId) throws ParameterNotPresentException {
         if (certificateId == null) {
-            throw new ParameterNotPresentException(ExceptionMessageConstants.CERTIFICATE_CODE,
-                    ExceptionMessageConstants.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
+            throw new ParameterNotPresentException(ExceptionMessageHandler.CERTIFICATE_CODE,
+                    ExceptionMessageHandler.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
         }
         if (tagId == null) {
-            throw new ParameterNotPresentException(ExceptionMessageConstants.TAG_CODE,
-                    ExceptionMessageConstants.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
+            throw new ParameterNotPresentException(ExceptionMessageHandler.TAG_CODE,
+                    ExceptionMessageHandler.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
         }
         return tagDao.addTagToCertificate(certificateId, tagId);
     }
@@ -75,8 +75,8 @@ public class TagServiceImpl implements TagService {
     @Override
     public boolean addTagToCertificate(Tag tag, Long certificateId) throws ParameterNotPresentException {
         if (certificateId == null) {
-            throw new ParameterNotPresentException(ExceptionMessageConstants.CERTIFICATE_CODE,
-                    ExceptionMessageConstants.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
+            throw new ParameterNotPresentException(ExceptionMessageHandler.CERTIFICATE_CODE,
+                    ExceptionMessageHandler.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
         }
         return tagDao.addTagToCertificate(tag, certificateId);
     }
@@ -84,12 +84,12 @@ public class TagServiceImpl implements TagService {
     @Override
     public boolean deleteTagFromCertificate(Long certificateId, Long tagId) throws ParameterNotPresentException {
         if (certificateId == null) {
-            throw new ParameterNotPresentException(ExceptionMessageConstants.CERTIFICATE_CODE,
-                    ExceptionMessageConstants.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
+            throw new ParameterNotPresentException(ExceptionMessageHandler.CERTIFICATE_CODE,
+                    ExceptionMessageHandler.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
         }
         if (tagId == null) {
-            throw new ParameterNotPresentException(ExceptionMessageConstants.TAG_CODE,
-                    ExceptionMessageConstants.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
+            throw new ParameterNotPresentException(ExceptionMessageHandler.TAG_CODE,
+                    ExceptionMessageHandler.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
         }
         return tagDao.deleteTagFromCertificate(certificateId, tagId);
     }

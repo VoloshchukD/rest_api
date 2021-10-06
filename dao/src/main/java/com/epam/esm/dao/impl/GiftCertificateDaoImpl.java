@@ -21,11 +21,11 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
 
     @Override
     public boolean add(GiftCertificate giftCertificate) {
-        int result = jdbcTemplate.update(ConstantQuery.CREATE_GIFT_CERTIFICATE_QUERY,
+        int affectedRows = jdbcTemplate.update(ConstantQuery.ADD_GIFT_CERTIFICATE_QUERY,
                 giftCertificate.getName(), giftCertificate.getDescription(),
                 giftCertificate.getPrice(), giftCertificate.getDuration(),
                 giftCertificate.getCreateDate(), giftCertificate.getLastUpdateDate());
-        return (result == 1);
+        return (affectedRows == 1);
     }
 
     @Override
@@ -47,25 +47,25 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     @Transactional
     @Override
     public GiftCertificate update(GiftCertificate giftCertificate) {
-        int result = jdbcTemplate.update(ConstantQuery.UPDATE_GIFT_CERTIFICATE_QUERY,
+        int affectedRows = jdbcTemplate.update(ConstantQuery.UPDATE_GIFT_CERTIFICATE_QUERY,
                 giftCertificate.getName(), giftCertificate.getDescription(),
                 giftCertificate.getPrice(), giftCertificate.getDuration(),
                 giftCertificate.getCreateDate(), giftCertificate.getLastUpdateDate(),
                 giftCertificate.getId());
-        return (result == 1) ? giftCertificate : null;
+        return (affectedRows == 1) ? giftCertificate : null;
     }
 
     @Transactional
     @Override
     public boolean delete(Long id) {
-        jdbcTemplate.update(ConstantQuery.DELETE_TAG_FROM_CERTIFICATES_QUERY_BY_CERTIFICATE_ID, id);
+        jdbcTemplate.update(ConstantQuery.DELETE_TAG_FROM_CERTIFICATES_BY_CERTIFICATE_ID_QUERY, id);
         int affectedRows = jdbcTemplate.update(ConstantQuery.DELETE_GIFT_CERTIFICATE_QUERY, id);
         return (affectedRows == 1);
     }
 
     @Override
     public GiftCertificate findByTagName(String tagName) {
-        return jdbcTemplate.query(ConstantQuery.FIND_CERTIFICATE_BY_TAG_NAME,
+        return jdbcTemplate.query(ConstantQuery.FIND_CERTIFICATE_BY_TAG_NAME_QUERY,
                 new BeanPropertyRowMapper<>(GiftCertificate.class),
                 new Object[]{tagName})
                 .stream()
@@ -75,15 +75,15 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
 
     @Override
     public List<GiftCertificate> findByNameAndDescription(String name, String description) {
-        return jdbcTemplate.query(ConstantQuery.FIND_CERTIFICATES_BY_PART_OF_NAME_AND_DESCRIPTION,
+        return jdbcTemplate.query(ConstantQuery.FIND_CERTIFICATES_BY_PART_OF_NAME_AND_DESCRIPTION_QUERY,
                 new BeanPropertyRowMapper<>(GiftCertificate.class),
-                ConstantQuery.PERCENT + name + ConstantQuery.PERCENT,
-                ConstantQuery.PERCENT + description + ConstantQuery.PERCENT);
+                ConstantQuery.PERCENT_VALUE + name + ConstantQuery.PERCENT_VALUE,
+                ConstantQuery.PERCENT_VALUE + description + ConstantQuery.PERCENT_VALUE);
     }
 
     @Override
     public List<GiftCertificate> findSorted(String sortingParameter, boolean descending) {
-        return jdbcTemplate.query(ConstantQuery.FIND_CERTIFICATES_SORTED,
+        return jdbcTemplate.query(ConstantQuery.FIND_SORTED_CERTIFICATES_QUERY,
                 new BeanPropertyRowMapper<>(GiftCertificate.class), sortingParameter, descending);
     }
 

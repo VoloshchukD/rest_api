@@ -67,8 +67,8 @@ public class GiftCertificateServiceTest {
 
     @Test
     public void testFindByNameAndDescription() {
-        String name = "qwer";
-        String description = "qwer";
+        String name = "qwerty";
+        String description = "qwerty";
         Mockito.when(giftCertificateDao.findByNameAndDescription(name, description)).thenReturn(
                 Collections.singletonList(giftCertificate));
         Assertions.assertNotNull(giftCertificateDao.findByNameAndDescription(name, description));

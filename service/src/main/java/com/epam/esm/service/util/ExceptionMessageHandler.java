@@ -3,7 +3,7 @@ package com.epam.esm.service.util;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public final class ExceptionMessageConstants {
+public class ExceptionMessageHandler {
 
     public static final String CERTIFICATE_CODE = "01";
 
@@ -17,9 +17,6 @@ public final class ExceptionMessageConstants {
 
     public static String getMessageForLocale(String messageKey, Locale locale) {
         return ResourceBundle.getBundle(SOURCE_NAME, locale).getString(messageKey);
-    }
-
-    private ExceptionMessageConstants() {
     }
 
 }
