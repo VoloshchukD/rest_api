@@ -15,8 +15,8 @@ public final class ExceptionMessageConstants {
 
     public static final String SOURCE_NAME = "local";
 
-    public static String getMessageForLocale(String messageKey) {
-        return ResourceBundle.getBundle(SOURCE_NAME, Locale.getDefault()).getString(messageKey);
+    public static String getMessageForLocale(String messageKey, Locale locale) {
+        return ResourceBundle.getBundle(SOURCE_NAME, locale).getString(messageKey);
     }
 
     private ExceptionMessageConstants() {

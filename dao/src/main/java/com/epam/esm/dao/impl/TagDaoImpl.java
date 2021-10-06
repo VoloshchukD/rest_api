@@ -54,7 +54,7 @@ public class TagDaoImpl implements TagDao {
     @Transactional
     @Override
     public boolean delete(Long id) {
-        jdbcTemplate.update(ConstantQuery.DELETE_TAG_FROM_CERTIFICATES_QUERY, id);
+        jdbcTemplate.update(ConstantQuery.DELETE_TAG_FROM_CERTIFICATES_QUERY_BY_TAG_ID, id);
         int affectedRows = jdbcTemplate.update(ConstantQuery.DELETE_TAG_QUERY, id);
         return (affectedRows == 1);
     }

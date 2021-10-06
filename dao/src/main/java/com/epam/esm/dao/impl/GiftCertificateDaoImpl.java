@@ -55,10 +55,12 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
         return (result == 1) ? giftCertificate : null;
     }
 
+    @Transactional
     @Override
     public boolean delete(Long id) {
-        int result = jdbcTemplate.update(ConstantQuery.DELETE_GIFT_CERTIFICATE_QUERY, id);
-        return (result == 1);
+        jdbcTemplate.update(ConstantQuery.DELETE_TAG_FROM_CERTIFICATES_QUERY_BY_CERTIFICATE_ID, id);
+        int affectedRows = jdbcTemplate.update(ConstantQuery.DELETE_GIFT_CERTIFICATE_QUERY, id);
+        return (affectedRows == 1);
     }
 
     @Override
