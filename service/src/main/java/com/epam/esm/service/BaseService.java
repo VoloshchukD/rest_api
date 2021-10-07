@@ -1,5 +1,6 @@
 package com.epam.esm.service;
 
+import com.epam.esm.service.exception.DataNotFoundException;
 import com.epam.esm.service.exception.ParameterNotPresentException;
 
 import java.util.List;
@@ -25,8 +26,9 @@ public interface BaseService<T> {
      * @param id - required entity identifier
      * @return founded entity
      * @throws {@link ParameterNotPresentException}
+     * @throws {@link DataNotFoundException} when entity do not exist
      */
-    T find(Long id) throws ParameterNotPresentException;
+    T find(Long id) throws ParameterNotPresentException, DataNotFoundException;
 
     /**
      * Method with all entities seeking logics.
@@ -41,8 +43,9 @@ public interface BaseService<T> {
      * @param t - required entity data for update
      * @return updated entity
      * @throws {@link ParameterNotPresentException}
+     * @throws {@link DataNotFoundException} when entity do not exist
      */
-    T update(T t) throws ParameterNotPresentException;
+    T update(T t) throws ParameterNotPresentException, DataNotFoundException;
 
     /**
      * Method with entity data deletion.

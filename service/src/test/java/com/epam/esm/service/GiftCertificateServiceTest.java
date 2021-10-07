@@ -3,6 +3,7 @@ package com.epam.esm.service;
 import com.epam.esm.dao.GiftCertificateDao;
 import com.epam.esm.dao.impl.GiftCertificateDaoImpl;
 import com.epam.esm.entity.GiftCertificate;
+import com.epam.esm.service.exception.DataNotFoundException;
 import com.epam.esm.service.exception.ParameterNotPresentException;
 import com.epam.esm.service.impl.GiftCertificateServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -47,7 +48,7 @@ public class GiftCertificateServiceTest {
     }
 
     @Test
-    public void testFindGiftCertificate() throws ParameterNotPresentException {
+    public void testFindGiftCertificate() throws ParameterNotPresentException, DataNotFoundException {
         Mockito.when(giftCertificateDao.find(giftCertificate.getId())).thenReturn(giftCertificate);
         Assertions.assertEquals(giftCertificate, giftCertificateService.find(giftCertificate.getId()));
     }

@@ -3,6 +3,7 @@ package com.epam.esm.service;
 import com.epam.esm.dao.TagDao;
 import com.epam.esm.dao.impl.TagDaoImpl;
 import com.epam.esm.entity.Tag;
+import com.epam.esm.service.exception.DataNotFoundException;
 import com.epam.esm.service.exception.ParameterNotPresentException;
 import com.epam.esm.service.impl.TagServiceImpl;
 import org.junit.jupiter.api.Assertions;
@@ -41,7 +42,7 @@ public class TagServiceTest {
     }
 
     @Test
-    public void testFindTag() throws ParameterNotPresentException {
+    public void testFindTag() throws ParameterNotPresentException, DataNotFoundException {
         Mockito.when(tagDao.find(tag.getId())).thenReturn(tag);
         Assertions.assertEquals(tag, tagService.find(tag.getId()));
     }

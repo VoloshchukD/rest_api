@@ -3,6 +3,7 @@ package com.epam.esm.service.impl;
 import com.epam.esm.dao.TagDao;
 import com.epam.esm.entity.Tag;
 import com.epam.esm.service.TagService;
+import com.epam.esm.service.exception.DataNotFoundException;
 import com.epam.esm.service.exception.ParameterNotPresentException;
 import com.epam.esm.service.util.ExceptionMessageHandler;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,17 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag find(Long id) throws ParameterNotPresentException {
+    public Tag find(Long id) throws ParameterNotPresentException, DataNotFoundException {
         if (id == null) {
             throw new ParameterNotPresentException(ExceptionMessageHandler.TAG_CODE,
                     ExceptionMessageHandler.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
         }
-        return tagDao.find(id);
+        Tag tag = tagDao.find(id);
+        if (tag == null) {
+            throw new DataNotFoundException(ExceptionMessageHandler.TAG_CODE,
+                    ExceptionMessageHandler.TAG_NOT_FOUND_MESSAGE_NAME);
+        }
+        return tag;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag update(Tag tag) throws ParameterNotPresentException {
+    public Tag update(Tag tag) throws ParameterNotPresentException, DataNotFoundException {
         if (tag.getId() == null) {
             throw new ParameterNotPresentException(ExceptionMessageHandler.TAG_CODE,
                     ExceptionMessageHandler.TAG_ID_NOT_PRESENT_MESSAGE_NAME);
@@ -73,7 +79,8 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public boolean addTagToCertificate(Tag tag, Long certificateId) throws ParameterNotPresentException {
+    public boolean addTagToCertificate(Tag tag, Long certificateId)
+            throws ParameterNotPresentException {
         if (certificateId == null) {
             throw new ParameterNotPresentException(ExceptionMessageHandler.CERTIFICATE_CODE,
                     ExceptionMessageHandler.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);

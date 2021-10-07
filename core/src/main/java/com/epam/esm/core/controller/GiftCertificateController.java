@@ -2,10 +2,16 @@ package com.epam.esm.core.controller;
 
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.service.GiftCertificateService;
+import com.epam.esm.service.exception.DataNotFoundException;
 import com.epam.esm.service.exception.ParameterNotPresentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -20,18 +26,18 @@ public class GiftCertificateController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<GiftCertificate> getGiftCertificate(@PathVariable("id") Long id)
-            throws ParameterNotPresentException {
+    public ResponseEntity<GiftCertificate> findGiftCertificate(@PathVariable("id") Long id)
+            throws ParameterNotPresentException, DataNotFoundException {
         return new ResponseEntity(giftCertificateService.find(id), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<GiftCertificate>> getGiftCertificates() {
+    public ResponseEntity<List<GiftCertificate>> findGiftCertificates() {
         return new ResponseEntity(giftCertificateService.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Boolean> createGiftCertificate(@RequestBody GiftCertificate certificate) {
+    public ResponseEntity<Boolean> addGiftCertificate(@RequestBody GiftCertificate certificate) {
         boolean result = giftCertificateService.add(certificate);
         HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
@@ -39,7 +45,7 @@ public class GiftCertificateController {
 
     @RequestMapping(method = RequestMethod.PATCH, consumes = "application/json")
     public ResponseEntity<GiftCertificate> updateGiftCertificate(@RequestBody GiftCertificate giftCertificate)
-            throws ParameterNotPresentException {
+            throws ParameterNotPresentException, DataNotFoundException {
         GiftCertificate updatedGiftCertificate = giftCertificateService.update(giftCertificate);
         HttpStatus httpStatus = (updatedGiftCertificate != null)
                 ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;

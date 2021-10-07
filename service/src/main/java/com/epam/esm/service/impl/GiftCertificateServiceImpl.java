@@ -3,6 +3,7 @@ package com.epam.esm.service.impl;
 import com.epam.esm.dao.GiftCertificateDao;
 import com.epam.esm.entity.GiftCertificate;
 import com.epam.esm.service.GiftCertificateService;
+import com.epam.esm.service.exception.DataNotFoundException;
 import com.epam.esm.service.exception.ParameterNotPresentException;
 import com.epam.esm.service.util.ExceptionMessageHandler;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,17 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public GiftCertificate find(Long id) throws ParameterNotPresentException {
+    public GiftCertificate find(Long id) throws ParameterNotPresentException, DataNotFoundException {
         if (id == null) {
             throw new ParameterNotPresentException(ExceptionMessageHandler.CERTIFICATE_CODE,
                     ExceptionMessageHandler.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
         }
-        return giftCertificateDao.find(id);
+        GiftCertificate giftCertificate = giftCertificateDao.find(id);
+        if (giftCertificate == null) {
+            throw new DataNotFoundException(ExceptionMessageHandler.CERTIFICATE_CODE,
+                    ExceptionMessageHandler.CERTIFICATE_NOT_FOUND_MESSAGE_NAME);
+        }
+        return giftCertificate;
     }
 
     @Override
@@ -42,7 +48,8 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public GiftCertificate update(GiftCertificate certificate) throws ParameterNotPresentException {
+    public GiftCertificate update(GiftCertificate certificate)
+            throws ParameterNotPresentException, DataNotFoundException {
         if (certificate.getId() == null) {
             throw new ParameterNotPresentException(ExceptionMessageHandler.CERTIFICATE_CODE,
                     ExceptionMessageHandler.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
