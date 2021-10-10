@@ -69,7 +69,7 @@ public class GiftCertificateDaoTest {
 
     @Test
     public void testFindSorted() {
-        Assertions.assertNotNull(giftCertificateDao.findSorted("name", false));
+        Assertions.assertNotNull(giftCertificateDao.findSorted("name"));
     }
 
 }

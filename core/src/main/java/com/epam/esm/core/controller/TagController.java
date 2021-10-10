@@ -58,8 +58,7 @@ public class TagController {
         return new ResponseEntity(result, httpStatus);
     }
 
-    @RequestMapping(method = RequestMethod.POST, params = {"certificateId", "tagId"},
-            consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, params = {"certificateId", "tagId"})
     public ResponseEntity<Boolean> addTagToCertificate(@RequestParam("certificateId") Long certificateId,
                                                        @RequestParam("tagId") Long tagId)
             throws ParameterNotPresentException {

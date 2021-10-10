@@ -8,6 +8,7 @@ import com.epam.esm.service.exception.ParameterNotPresentException;
 import com.epam.esm.service.util.ExceptionMessageHandler;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -83,7 +84,11 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
 
     @Override
     public List<GiftCertificate> findSorted(String sortingParameter, boolean descending) {
-        return giftCertificateDao.findSorted(sortingParameter, descending);
+        List<GiftCertificate> sortedCertificates = giftCertificateDao.findSorted(sortingParameter);
+        if (descending) {
+            Collections.reverse(sortedCertificates);
+        }
+        return sortedCertificates;
     }
 
 }

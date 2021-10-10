@@ -10,6 +10,6 @@ public interface GiftCertificateDao extends BaseDao<GiftCertificate> {
 
     List<GiftCertificate> findByNameAndDescription(String name, String description);
 
-    List<GiftCertificate> findSorted(String sortingParameter, boolean descending);
+    List<GiftCertificate> findSorted(String sortingParameter);
 
 }

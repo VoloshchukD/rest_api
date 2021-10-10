@@ -50,8 +50,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
         int affectedRows = jdbcTemplate.update(ConstantQuery.UPDATE_GIFT_CERTIFICATE_QUERY,
                 giftCertificate.getName(), giftCertificate.getDescription(),
                 giftCertificate.getPrice(), giftCertificate.getDuration(),
-                giftCertificate.getCreateDate(), giftCertificate.getLastUpdateDate(),
-                giftCertificate.getId());
+                giftCertificate.getLastUpdateDate(), giftCertificate.getId());
         return (affectedRows == 1) ? giftCertificate : null;
     }
 
@@ -82,9 +81,9 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     }
 
     @Override
-    public List<GiftCertificate> findSorted(String sortingParameter, boolean descending) {
+    public List<GiftCertificate> findSorted(String sortingParameter) {
         return jdbcTemplate.query(ConstantQuery.FIND_SORTED_CERTIFICATES_QUERY,
-                new BeanPropertyRowMapper<>(GiftCertificate.class), sortingParameter, descending);
+                new BeanPropertyRowMapper<>(GiftCertificate.class), sortingParameter);
     }
 
 }
