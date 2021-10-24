@@ -8,10 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 
@@ -25,25 +29,27 @@ public class GiftCertificateController {
         this.giftCertificateService = giftCertificateService;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<GiftCertificate> findGiftCertificate(@PathVariable("id") Long id)
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public GiftCertificate findGiftCertificate(@PathVariable("id") Long id)
             throws ParameterNotPresentException, DataNotFoundException {
-        return new ResponseEntity(giftCertificateService.find(id), HttpStatus.OK);
+        return giftCertificateService.find(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<GiftCertificate>> findGiftCertificates() {
-        return new ResponseEntity(giftCertificateService.findAll(), HttpStatus.OK);
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<GiftCertificate> findGiftCertificates() {
+        return giftCertificateService.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<Boolean> addGiftCertificate(@RequestBody GiftCertificate certificate) {
         boolean result = giftCertificateService.add(certificate);
         HttpStatus httpStatus = result ? HttpStatus.CREATED : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, consumes = "application/json")
+    @PatchMapping(consumes = "application/json")
     public ResponseEntity<GiftCertificate> updateGiftCertificate(@RequestBody GiftCertificate giftCertificate)
             throws ParameterNotPresentException, DataNotFoundException {
         GiftCertificate updatedGiftCertificate = giftCertificateService.update(giftCertificate);
@@ -52,7 +58,7 @@ public class GiftCertificateController {
         return new ResponseEntity(updatedGiftCertificate, httpStatus);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<GiftCertificate> deleteGiftCertificate(
             @PathVariable("id") Long id) throws ParameterNotPresentException {
         boolean result = giftCertificateService.delete(id);
@@ -60,22 +66,25 @@ public class GiftCertificateController {
         return new ResponseEntity(result, httpStatus);
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = {"tagName"})
-    public ResponseEntity<GiftCertificate> findGiftCertificateByTagName(@RequestParam("tagName") String tagName) {
-        return new ResponseEntity(giftCertificateService.findByTagName(tagName), HttpStatus.OK);
+    @GetMapping(params = {"tagName"})
+    @ResponseStatus(HttpStatus.OK)
+    public GiftCertificate findGiftCertificateByTagName(@RequestParam("tagName") String tagName) {
+        return giftCertificateService.findByTagName(tagName);
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = {"name", "description"})
-    public ResponseEntity<List<GiftCertificate>> findByNameAndDescription(@RequestParam("name") String name,
-                                                                          @RequestParam("description")
-                                                                                  String description) {
-        return new ResponseEntity(giftCertificateService.findByNameAndDescription(name, description), HttpStatus.OK);
+    @GetMapping(params = {"name", "description"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<GiftCertificate> findByNameAndDescription(@RequestParam("name") String name,
+                                                          @RequestParam("description")
+                                                                  String description) {
+        return giftCertificateService.findByNameAndDescription(name, description);
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = {"sortingParameter", "descending"})
-    public ResponseEntity<List<GiftCertificate>> findSorted(@RequestParam("sortingParameter") String sortingParameter,
-                                                            @RequestParam("descending") boolean descending) {
-        return new ResponseEntity(giftCertificateService.findSorted(sortingParameter, descending), HttpStatus.OK);
+    @GetMapping(params = {"sortingParameter", "descending"})
+    @ResponseStatus(HttpStatus.OK)
+    public List<GiftCertificate> findSorted(@RequestParam("sortingParameter") String sortingParameter,
+                                            @RequestParam("descending") boolean descending) {
+        return giftCertificateService.findSorted(sortingParameter, descending);
     }
 
 }

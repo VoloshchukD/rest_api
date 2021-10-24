@@ -1,5 +1,7 @@
 package com.epam.esm.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -59,6 +61,7 @@ public class GiftCertificate {
         this.duration = duration;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
     public Date getCreateDate() {
         return createDate;
     }
@@ -67,6 +70,7 @@ public class GiftCertificate {
         this.createDate = createDate;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
     public Date getLastUpdateDate() {
         return lastUpdateDate;
     }

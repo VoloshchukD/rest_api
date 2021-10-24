@@ -39,7 +39,10 @@ public final class ConstantQuery {
     public static final String DELETE_TAG_FROM_CERTIFICATES_BY_CERTIFICATE_ID_QUERY
             = "DELETE FROM certificate_tag_maps WHERE gift_certificate_id = ?";
 
-    public static final String FIND_CERTIFICATE_BY_TAG_NAME_QUERY = "SELECT * FROM gift_certificates " +
+    public static final String FIND_CERTIFICATE_BY_TAG_NAME_QUERY = "SELECT " +
+            "gift_certificates.id, gift_certificates.name, gift_certificates.description, " +
+            "gift_certificates.price, gift_certificates.duration, gift_certificates.create_date, " +
+            "gift_certificates.last_update_date FROM gift_certificates " +
             "INNER JOIN certificate_tag_maps ON certificate_tag_maps.gift_certificate_id = gift_certificates.id " +
             "INNER JOIN tags ON certificate_tag_maps.tag_id = tags.id WHERE tags.name = COALESCE(?, tags.name)";
 
