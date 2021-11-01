@@ -49,7 +49,8 @@ public class TagController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Tag> deleteTag(@PathVariable("id") Long id) throws ParameterNotPresentException {
+    public ResponseEntity<Tag> deleteTag(@PathVariable("id") Long id)
+            throws ParameterNotPresentException, DataNotFoundException {
         boolean result = tagService.delete(id);
         HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
@@ -74,7 +75,7 @@ public class TagController {
     }
 
     @DeleteMapping(params = {"certificateId", "tagId"})
-    public ResponseEntity<Tag> deleteTagFromCertificate(@RequestParam("certificateId") Long certificateId,
+    public ResponseEntity<Boolean> deleteTagFromCertificate(@RequestParam("certificateId") Long certificateId,
                                                         @RequestParam("tagId") Long tagId)
             throws ParameterNotPresentException {
         boolean result = tagService.deleteTagFromCertificate(certificateId, tagId);

@@ -60,7 +60,7 @@ public class GiftCertificateController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<GiftCertificate> deleteGiftCertificate(
-            @PathVariable("id") Long id) throws ParameterNotPresentException {
+            @PathVariable("id") Long id) throws ParameterNotPresentException, DataNotFoundException {
         boolean result = giftCertificateService.delete(id);
         HttpStatus httpStatus = result ? HttpStatus.OK : HttpStatus.NOT_MODIFIED;
         return new ResponseEntity(result, httpStatus);
@@ -75,8 +75,7 @@ public class GiftCertificateController {
     @GetMapping(params = {"name", "description"})
     @ResponseStatus(HttpStatus.OK)
     public List<GiftCertificate> findByNameAndDescription(@RequestParam("name") String name,
-                                                          @RequestParam("description")
-                                                                  String description) {
+                                                          @RequestParam("description") String description) {
         return giftCertificateService.findByNameAndDescription(name, description);
     }
 

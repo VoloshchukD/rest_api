@@ -64,10 +64,15 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     }
 
     @Override
-    public boolean delete(Long id) throws ParameterNotPresentException {
+    public boolean delete(Long id) throws ParameterNotPresentException, DataNotFoundException {
         if (id == null) {
             throw new ParameterNotPresentException(ExceptionMessageHandler.CERTIFICATE_CODE,
                     ExceptionMessageHandler.CERTIFICATE_ID_NOT_PRESENT_MESSAGE_NAME);
+        }
+        GiftCertificate certificate = giftCertificateDao.find(id);
+        if (certificate == null) {
+            throw new DataNotFoundException(ExceptionMessageHandler.CERTIFICATE_CODE,
+                    ExceptionMessageHandler.CERTIFICATE_NOT_FOUND_MESSAGE_NAME);
         }
         return giftCertificateDao.delete(id);
     }
